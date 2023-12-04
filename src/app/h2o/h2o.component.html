@@ -1,0 +1,59 @@
+<header>
+  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+      <h1 class="display-4 font-weight-normal">Puentes de hidrógeno</h1>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <p class="lead">
+    Los puentes de hidrogeno son un ejemplo de fuerzas dipolo – dipolo. Un dipolo no es otra cosa que una molécula
+    formada por al menos dos átomos con una gran diferencia de electronegatividad (un átomo es electropositivo y otro
+    electronegativo) en la que se produce una distribución asimétrica de los electrones, que tienen tendencia a ubicarse
+    en las proximidades del átomo más electronegativo.
+  </p>
+  <p class="lead">
+    De esta manera, podemos hablar de que existe una separación de las cargas eléctricas, de modo que se crea un campo
+    eléctrico que puede ser permanente (dipolo) o temporal (dipolo inducido).
+  </p>
+  <p class="lead">
+    Recuerda que en estos casos la molécula sigue siendo eléctricamente neutra (cargas positivas = cargas negativas),
+    pero existe una separación de los centros de carga.
+  </p>
+  <p class="lead">
+    <b>En esta simulación puedes ver el comportamiento de moléculas de agua según su temperatura, resaltando que cuando
+      la temperatura se acerca a 0, su velocidad se reduce y comienzan a formar el patrón característico de los puentes
+      de hidrogeno.</b>
+  </p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <canvas #canvas (click)="handleCanvasClick($event)"></canvas>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <label class="form-label">Moleculas: {{this.molecules ? this.molecules.length : 0}}</label>
+      <div class="d-grid gap-2">
+        <button type="button" (click)="addMolecule(1)" class="btn btn-outline-info">Agregar <br> 1 particula</button>
+        <button type="button" (click)="addMolecule(0)" class="btn btn-outline-danger">Eliminar <br> 1 particula</button>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="speedRange" class="form-label">Temperatura:</label>
+      <input type="range" id="speedRange" class="form-range" [width]="window ? window.innerHeight*.8: 100"
+             (change)="clearBridges($event)"
+             [(ngModel)]="temperature"
+             min="0"
+             max="150"/>
+      <label for="speedRange">{{temperature}}C°</label>
+    </div>
+  </div>
+</div>
+
+<div class="container rln"></div>
