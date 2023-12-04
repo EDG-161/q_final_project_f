@@ -263,15 +263,29 @@ export class H2oComponent implements AfterViewInit {
         if (r_d>=100){
           molecule.oxygen.y += distance_Y/this.temperature
           molecule.oxygen.x += distance/this.temperature
-        }else if (r_d<= 100 && r_d >=90){
-          this.moveRandom(molecule)
-        }else{
+        }else if (r_d<20){
+          molecule.oxygen.y -= 20
+          molecule.oxygen.x -= 20
+        }
+        else{
           molecule.oxygen.y -= distance_Y/this.temperature
           molecule.oxygen.x -= distance/this.temperature
         }
         this.checkBoundaries(molecule)
         this.rotateHAtoms(molecule)
       }else{
+        for (const molecule_t of this.molecules){
+          if (molecule_t.oxygen.x > this.canvasRef.nativeElement.width){
+            molecule_t.oxygen.x = (this.radius*2)
+          }else if (molecule_t.oxygen.x < 0){
+            molecule_t.oxygen.x = this.canvasRef.nativeElement.width - (this.radius*2)
+          }
+          if (molecule_t.oxygen.y > this.canvasRef.nativeElement.height){
+            molecule_t.oxygen.y = (this.radius*2)
+          }else if (molecule_t.oxygen.y < 0){
+            molecule_t.oxygen.y = this.canvasRef.nativeElement.height - (this.radius*2)
+          }
+        }
         this.rotateHAtoms(molecule, 2)
         if (molecule.oxygen.i != 0){
           const nearestNeighbor = this.findNearestNeighbor(molecule, 2);
@@ -282,9 +296,6 @@ export class H2oComponent implements AfterViewInit {
             }
           }
           if (!is_in){
-            this.checkBoundaries(molecule);
-            this.checkBoundaries(nearestNeighbor);
-
             if (!(nearestNeighbor.oxygen.e1.i)){
               const px = nearestNeighbor.oxygen.x + ((this.radius+25) * Math.cos((nearestNeighbor.oxygen.e1.angle)* (Math.PI/180)))
               const py = nearestNeighbor.oxygen.y + ((this.radius+25) * Math.sin(nearestNeighbor.oxygen.e1.angle* (Math.PI/180)))
